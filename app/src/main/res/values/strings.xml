@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Ma_Kim</string>
+    <string name="id_extra">id</string>
+
 </resources>
