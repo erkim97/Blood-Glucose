@@ -33,28 +33,66 @@ class to be implemented, when wanting to edit a reading
 public class EditEntryActivity extends AppCompatActivity {
 
     // Connect to firebase
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    DatabaseReference myRef = null;
+    private DatabaseReference myRef = null;
     final Calendar myCalendar = Calendar.getInstance();
-    TextView timeText;
-    TextView dateText;
-
-    String id;
+    private TextView timeText;
+    private TextView dateText;
+    private BloodPressureReading reading = null;
+    private String relative = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
-        BloodPressureReading reading = (BloodPressureReading) getIntent().getSerializableExtra("BloodPressure");
-        String relative = getIntent().getStringExtra("relative");
-
-        DatabaseReference myRef = database.getReference(relative).child("data");
+        reading = (BloodPressureReading) getIntent().getSerializableExtra("BloodPressure");
+        relative = getIntent().getStringExtra("relative");
+        myRef = database.getReference(relative).child("data");
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_entry);
 
-        id = reading.getId();
+        initStatic();
 
-        // Just default date and time
+    }
+    // Updates textview with calendar picker selection
+    private void updateDate(TextView textView) {
+        String myFormat = "MM/dd/yy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        textView.setText(getString(R.string.reading_date) + " " + sdf.format(myCalendar.getTime()));
+    }
+
+    //Uses the firebase id of the reading to replace old one
+    public void editReading(View view){
+
+        EditText editText = findViewById(R.id.textViewSystolicReading);
+        String systolicReading = editText.getText().toString();
+        editText.setText("");
+
+        editText = findViewById(R.id.textViewDiastolicReading);
+        String diastolicReading = editText.getText().toString();
+        editText.setText("");
+
+        BloodPressureReading updatedBPReading = (BloodPressureReading) getIntent().getSerializableExtra("BloodPressure");
+        modifyReading(updatedBPReading);
+        Task setValueTask = myRef.child(updatedBPReading.getId()).setValue(updatedBPReading);
+
+        setValueTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(EditEntryActivity.this,
+                        getString(R.string.error) + e.toString(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        finish();
+    }
+
+    private void initStatic(){
+
         Date d = new Date();
         CharSequence defaultDate = DateFormat.format("MM/dd/yy", d.getTime());
         dateText = findViewById(R.id.readingDate);
@@ -64,9 +102,6 @@ public class EditEntryActivity extends AppCompatActivity {
         timeText = findViewById(R.id.readingTime);
         timeText.setText(getString(R.string.reading_time) + " " + defaultTime);
 
-
-        //Datepicker
-        //Text to fill date with
         dateText = findViewById(R.id.readingDate);
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -81,16 +116,6 @@ public class EditEntryActivity extends AppCompatActivity {
             }
 
         };
-
-        dateText.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(EditEntryActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
 
         // TimePicker
         //Text to fill time with
@@ -114,51 +139,14 @@ public class EditEntryActivity extends AppCompatActivity {
 
             }
         });
-
     }
-    // Updates textview with calendar picker selection
-    private void updateDate(TextView textView) {
+
+    private void modifyReading(BloodPressureReading reading){
         String myFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
-        textView.setText(getString(R.string.reading_date) + " " + sdf.format(myCalendar.getTime()));
-    }
-
-    //Uses the firebase id of the reading to replace old one
-    public void editReading(View view){
-
-        Spinner spText = (Spinner)findViewById(R.id.spUser);
-        String spUser = spText.getSelectedItem().toString();
-
-        EditText editText = findViewById(R.id.textViewSystolicReading);
-        String systolicReading = editText.getText().toString();
-        editText.setText("");
-
-        editText = findViewById(R.id.textViewDiastolicReading);
-        String diastolicReading = editText.getText().toString();
-        editText.setText("");
-
-        editText = findViewById(R.id.textViewCondition);
-        String condition = editText.getText().toString();
-        editText.setText("");
-
-        BloodPressureReading updatedBPReading = new BloodPressureReading(spUser,
-                systolicReading,
-                diastolicReading);
-        updatedBPReading.id = id;
-
-        Task setValueTask = myRef.child(id).setValue(updatedBPReading);
-
-        setValueTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditEntryActivity.this,
-                        getString(R.string.error) + e.toString(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        finish();
+        reading.setDate(sdf.format(myCalendar.getTime()));
+        reading.setDiastolicReading("9999");
+        reading.setSystolicReading("9999");
     }
 }
 

@@ -1,5 +1,6 @@
 package com.bcit.ma_kim;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -64,7 +65,7 @@ public class Relative extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         loadAnimations();
-        initAddButton();
+        initButtons();
         initStaticContent();
         dbRef = database.getReference(title);
         initFirebaseListener();
@@ -155,7 +156,7 @@ public class Relative extends Fragment {
         this.title = title;
     }
 
-    private void initAddButton() {
+    private void initButtons() {
 
         View pop_btn = getView().findViewById(R.id.floating_pop_btn);
         pop_btn.setOnClickListener(
@@ -165,6 +166,20 @@ public class Relative extends Fragment {
                         setVisibilityBtns(clicked);
                         setAnimation(clicked);
                         clicked = !clicked;
+                    }
+                }
+
+
+        );
+        View add_btn = getView().findViewById(R.id.floating_add_btn);
+
+        add_btn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getContext(), EntryActivity.class);
+                        i.putExtra("relative", Relative.this.getTitle());
+                        getContext().startActivity(i);
                     }
                 }
 
@@ -219,4 +234,5 @@ public class Relative extends Fragment {
         relativeRecycler.setLayoutManager(lm);
         Log.e("RELATIVE", "COMPLETE INIT RECYCLER");
     }
+
 }
