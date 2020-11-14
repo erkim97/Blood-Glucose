@@ -16,6 +16,7 @@
     <string name="reading_time">Time</string>
     <string name="systolic_readings">Systolic Reading</string>
     <string name="diastolic_reading">Diastolic Reading</string>
+    <string name="condition_reading">Condition Reading</string>
     <string name="condition">Condition</string>
     <string name="generate_report">Generate MTD Report</string>
     <string name="systolic">Systolic</string>
