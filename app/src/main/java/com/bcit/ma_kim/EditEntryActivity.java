@@ -75,7 +75,7 @@ public class EditEntryActivity extends AppCompatActivity {
         editText.setText("");
 
         BloodPressureReading updatedBPReading = (BloodPressureReading) getIntent().getSerializableExtra("BloodPressure");
-        modifyReading(updatedBPReading);
+        modifyReading(updatedBPReading, null, null, null); //TODO
         Task setValueTask = myRef.child(updatedBPReading.getId()).setValue(updatedBPReading);
 
         setValueTask.addOnFailureListener(new OnFailureListener() {
@@ -141,12 +141,17 @@ public class EditEntryActivity extends AppCompatActivity {
         });
     }
 
-    private void modifyReading(BloodPressureReading reading){
+    private void modifyReading(BloodPressureReading reading, String newSys, String newDia, String newDate){
         String myFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-        reading.setDate(sdf.format(myCalendar.getTime()));
-        reading.setDiastolicReading("9999");
-        reading.setSystolicReading("9999");
+
+        newSys = "9999";
+        newDia = "-9999";
+        newDate = sdf.format(myCalendar.getTime());
+
+        reading.setDate(newDate);
+        reading.setDiastolicReading(newDia);
+        reading.setSystolicReading(newSys);
     }
 }
 
