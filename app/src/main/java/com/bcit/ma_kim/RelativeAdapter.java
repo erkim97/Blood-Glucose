@@ -1,7 +1,9 @@
 package com.bcit.ma_kim;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,7 +39,7 @@ public class RelativeAdapter extends RecyclerView.Adapter<RelativeAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RelativeAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RelativeAdapter.ViewHolder holder, final int position) {
         Log.e("ADAPTER", "binding adapter");
         final CardView cardView = holder.cardView;
         TextView sys_reading = cardView.findViewById(R.id.sys_reading);
@@ -48,6 +50,17 @@ public class RelativeAdapter extends RecyclerView.Adapter<RelativeAdapter.ViewHo
         dia_reading.setText(cardView.getResources().getText(R.string.diastolic_reading) + ": " + data[position].getDiastolicReading());
         date.setText(cardView.getResources().getText(R.string.reading_date) + ": " + data[position].getDate());
         condition.setText(cardView.getResources().getText(R.string.condition_reading) + ": " + data[position].getCondition());
+
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(cardView.getContext(), EditEntryActivity.class);
+                i.putExtra("BloodPressure",data[position]);
+                i.putExtra("relative", RelativeAdapter.this.relative.getTitle());
+                cardView.getContext().startActivity(i);
+            }
+        });
+
     }
 
     @Override

@@ -2,9 +2,10 @@ package com.bcit.ma_kim;
 
 import android.icu.text.SimpleDateFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BloodPressureReading {
+public class BloodPressureReading implements Serializable {
     public String id;
     public String spUser;
     public String time;
