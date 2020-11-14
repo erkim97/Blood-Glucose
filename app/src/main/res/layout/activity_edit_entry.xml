@@ -25,15 +25,6 @@
             android:onClick="editReading"
             android:text="@string/edit_reading" />
 
-        <Spinner
-            android:id="@+id/spUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/user_id"
-            android:textSize="15sp"
-            android:entries="@array/familyMember"/>
-
         <TextView
             android:id="@+id/readingDate"
             android:layout_width="match_parent"
@@ -71,12 +62,5 @@
             android:hint="@string/diastolic_reading"
             android:textSize="15sp"/>
 
-        <EditText
-            android:id="@+id/textViewCondition"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/condition"
-            android:textSize="15sp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
