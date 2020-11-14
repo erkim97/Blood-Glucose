@@ -141,7 +141,7 @@ public class EditEntryActivity extends AppCompatActivity {
         String condition = editText.getText().toString();
         editText.setText("");
 
-        BloodPressureReadingActivity updatedBPReading = new BloodPressureReadingActivity(spUser,
+        BloodPressureReading updatedBPReading = new BloodPressureReading(spUser,
                 systolicReading,
                 diastolicReading);
         updatedBPReading.id = id;

@@ -25,7 +25,7 @@ public class MTDReportActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference().child("BPReadings");
 
-    ArrayList<BloodPressureReadingActivity> bpReadingsList = new ArrayList<>();
+    ArrayList<BloodPressureReading> bpReadingsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class MTDReportActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    BloodPressureReadingActivity bpReading = snapshot.getValue(BloodPressureReadingActivity.class);
+                    BloodPressureReading bpReading = snapshot.getValue(BloodPressureReading.class);
                     bpReadingsList.add(bpReading);
                 }
             }
@@ -71,7 +71,7 @@ public class MTDReportActivity extends AppCompatActivity {
         double diastolicAverage;
         String conditionAverage;
 
-        for(BloodPressureReadingActivity bpReading: bpReadingsList){
+        for(BloodPressureReading bpReading: bpReadingsList){
             if(bpReading.spUser.equals(spinnerUser)){
                 systolicTotal = systolicTotal + Integer.parseInt(bpReading.systolicReading);
                 diastolicTotal = diastolicTotal + Integer.parseInt(bpReading.diastolicReading);

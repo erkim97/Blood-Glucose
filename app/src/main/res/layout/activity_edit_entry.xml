@@ -32,7 +32,7 @@
             android:ems="10"
             android:hint="@string/user_id"
             android:textSize="15sp"
-            android:entries="@array/users"/>
+            android:entries="@array/familyMember"/>
 
         <TextView
             android:id="@+id/readingDate"
