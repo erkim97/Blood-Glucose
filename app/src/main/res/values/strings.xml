@@ -20,6 +20,8 @@
     <string name="generate_report">Generate MTD Report</string>
     <string name="systolic">Systolic</string>
     <string name="diastolic">Diastolic</string>
+    <string name="add_blood_pressure_txt">Add Blood Pressure</string>
+    <string name="edit_blood_pressure_txt">Edit Blood Pressure</string>
 
     <string-array name="familyMember">
         <item>father@home.com</item>

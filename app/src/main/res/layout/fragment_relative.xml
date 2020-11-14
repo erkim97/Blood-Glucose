@@ -46,8 +46,7 @@
                 android:id="@+id/family_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="father@home.com" />
+                android:layout_weight="1" />
 
         </TableRow>
 
@@ -58,7 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/sys_reading_header"></TextView>
+                android:text="@string/sys_reading_header" />
 
             <TextView
                 android:id="@+id/sys_reading"
@@ -66,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"></TextView>
+                app:layout_constraintStart_toStartOf="parent" />
         </TableRow>
 
         <TableRow>
@@ -76,7 +75,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/dia_reading_header"></TextView>
+                android:text="@string/dia_reading_header" />
 
             <TextView
                 android:id="@+id/dia_reading"
@@ -84,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"></TextView>
+                app:layout_constraintStart_toStartOf="parent" />
         </TableRow>
 
         <TableRow>
@@ -94,13 +93,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/avg_reading_header"></TextView>
+                android:text="@string/avg_reading_header" />
 
             <TextView
                 android:id="@+id/average_condition"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"></TextView>
+                android:layout_weight="1" />
 
         </TableRow>
 
@@ -119,36 +118,75 @@
         app:layout_constraintTop_toBottomOf="@+id/tableLayout2"
         app:layout_constraintVertical_bias="0.14" />
 
+
+    <TextView
+        android:id="@+id/floating_add_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/add_blood_pressure_txt"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/floating_add_btn"
+        app:layout_constraintEnd_toStartOf="@+id/floating_add_btn"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_add_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/colorAccent"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_add"
+        android:tint="@android:color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/floating_edit_btn"
+        app:layout_constraintStart_toStartOf="@+id/floating_edit_btn" />
+
+
+    <TextView
+        android:id="@+id/floating_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/edit_blood_pressure_txt"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/floating_edit_btn"
+        app:layout_constraintEnd_toStartOf="@+id/floating_edit_btn" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_edit_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/colorAccent"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_edit"
         android:tint="@android:color/white"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/floating_add_btn"
-        app:layout_constraintEnd_toEndOf="@+id/floating_add_btn"
+        app:layout_constraintBottom_toTopOf="@+id/floating_pop_btn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/floating_add_btn" />
+        app:layout_constraintStart_toStartOf="@+id/floating_pop_btn" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
 
-        android:id="@+id/floating_add_btn"
+        android:id="@+id/floating_pop_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
+        android:layout_margin="20dp"
         android:backgroundTint="@color/colorPrimary"
         android:clickable="true"
         android:focusable="true"
         android:tint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add" />
+        app:srcCompat="@drawable/ic_pop" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
