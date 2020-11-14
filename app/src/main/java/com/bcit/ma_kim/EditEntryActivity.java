@@ -35,9 +35,7 @@ public class EditEntryActivity extends AppCompatActivity {
     // Connect to firebase
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    // Create "BPReadings" in db
-    DatabaseReference myRef = database.getReference().child("BPReadings");
-
+    DatabaseReference myRef = null;
     final Calendar myCalendar = Calendar.getInstance();
     TextView timeText;
     TextView dateText;
@@ -46,12 +44,15 @@ public class EditEntryActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        BloodPressureReading reading = (BloodPressureReading) getIntent().getSerializableExtra("BloodPressure");
+        String relative = getIntent().getStringExtra("relative");
+
+        DatabaseReference myRef = database.getReference(relative).child("data");
+
         super.onCreate(savedInstanceState);
 
-        //layout activity to be made for edit entry
-        //setContentView(R.layout.activity_edit_entry);
-
-        id = getIntent().getStringExtra(getString(R.string.id_extra));
+        id = reading.getId();
 
         // Just default date and time
         Date d = new Date();
