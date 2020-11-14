@@ -56,17 +56,17 @@ public class EditEntryActivity extends AppCompatActivity {
         // Just default date and time
         Date d = new Date();
         CharSequence defaultDate = DateFormat.format("MM/dd/yy", d.getTime());
-        dateText = findViewById(R.id.);
-        dateText.setText(getString(R.string.) + " " + defaultDate);
+        dateText = findViewById(R.id.readingDate);
+        dateText.setText(getString(R.string.reading_date) + " " + defaultDate);
 
         CharSequence defaultTime = DateFormat.format("hh:mm", d.getTime());
-        timeText = findViewById(R.id.);
-        timeText.setText(getString(R.string.) + " " + defaultTime);
+        timeText = findViewById(R.id.readingTime);
+        timeText.setText(getString(R.string.reading_time) + " " + defaultTime);
 
 
         //Datepicker
         //Text to fill date with
-        dateText = findViewById(R.id.);
+        dateText = findViewById(R.id.readingDate);
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -93,7 +93,7 @@ public class EditEntryActivity extends AppCompatActivity {
 
         // TimePicker
         //Text to fill time with
-        timeText = findViewById(R.id.);
+        timeText = findViewById(R.id.readingTime);
         timeText.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -120,24 +120,24 @@ public class EditEntryActivity extends AppCompatActivity {
         String myFormat = "MM/dd/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        textView.setText(getString(R.string.) + " " + sdf.format(myCalendar.getTime()));
+        textView.setText(getString(R.string.reading_date) + " " + sdf.format(myCalendar.getTime()));
     }
 
     //Uses the firebase id of the reading to replace old one
     public void editReading(View view){
 
-        Spinner spText = (Spinner)findViewById(R.id."spinnerID");
+        Spinner spText = (Spinner)findViewById(R.id.spUser);
         String spUser = spText.getSelectedItem().toString();
 
-        EditText editText = findViewById(R.id."textViewSystolicReading");
+        EditText editText = findViewById(R.id.textViewSystolicReading);
         String systolicReading = editText.getText().toString();
         editText.setText("");
 
-        editText = findViewById(R.id."textViewDiastolicReading");
+        editText = findViewById(R.id.textViewDiastolicReading);
         String diastolicReading = editText.getText().toString();
         editText.setText("");
 
-        editText = findViewById(R.id."textViewCondition");
+        editText = findViewById(R.id.textViewCondition);
         String condition = editText.getText().toString();
         editText.setText("");
 
@@ -152,7 +152,7 @@ public class EditEntryActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(EditEntryActivity.this,
-                        getString("ERROROROROROORORORORORO") + e.toString(),
+                        getString(R.string.error) + e.toString(),
                         Toast.LENGTH_SHORT).show();
             }
         });

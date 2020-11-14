@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         /*
         Placeholder button to link to month-to-date report activity for now
          */
-        Button btnGoToMTDReport = findViewById(R.id."btnGoToMTDActivity");
+        Button btnGoToMTDReport = findViewById(R.id.btnGoToMTDActivity);
         btnGoToMTDReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         /*
         Placeholder button to add
          */
-        Button addReportBtn = findViewById(R.id."btnAddReport");;
+        Button addReportBtn = findViewById(R.id.btnAddReport);;
         addReportBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,20 +84,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void addReading() {
-    }
+    private void displayReadings(ArrayList<BloodPressureReadingActivity> bpReadingsList) {
+        for (int i = 0; i < bpReadingsList.size(); i++) {
+        }
+        }
 
     //to be implemented
-    private void displayReadings(ArrayList<BloodPressureReadingActivity> bpReadingsList){
-        Spinner spText = (Spinner)findViewById(R.id."spinnerID");
+    private void addReading(){
+        Spinner spText = (Spinner)findViewById(R.id.spinnerID);
         String spUser = spText.getSelectedItem().toString();
 
         EditText editText;
-        editText = findViewById(R.id."textViewSystolic");
+        editText = findViewById(R.id.textViewSystolic);
         String systolicReading = editText.getText().toString();
         editText.setText("");
 
-        editText = findViewById(R.id."textViewDiastolic");
+        editText = findViewById(R.id.textViewDiastolic);
         String diastolicReading = editText.getText().toString();
         editText.setText("");
 
@@ -119,10 +121,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(MainActivity.this,
-                        getString("erororororoorrroror") + e.toString(),
+                        getString(R.string.error) + e.toString(),
                         Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    /*
+     final String id = bpReadingsList.get(i).id;
+
+            // Sets up edit textview button, send the reading id to the other activity
+            TextView editReading = getString(R.string.edit));
+            editReading.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent intent = new Intent(view.getContext(), EditEntryActivity.class);
+                    intent.putExtra("id", id);
+                    startActivity(intent);
+                }
+            });
+     */
 
     }

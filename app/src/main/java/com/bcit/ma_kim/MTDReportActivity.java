@@ -30,7 +30,7 @@ public class MTDReportActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_"MTDREPORT");
+        setContentView(R.layout.activity_mtd_report);
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -59,7 +59,7 @@ public class MTDReportActivity extends AppCompatActivity {
     }
 
     public void generateReport(View view){
-        Spinner chosenSpinnerUser = (Spinner)findViewById(R.id."spinnerID");
+        Spinner chosenSpinnerUser = (Spinner)findViewById(R.id.spUserReport);
         String spinnerUser = chosenSpinnerUser.getSelectedItem().toString();
 
         //used for calculating averages
@@ -98,9 +98,9 @@ public class MTDReportActivity extends AppCompatActivity {
         /*
         Placeholder textviews to output these results
          */
-        TextView tvSystolicAvg = findViewById(R.id."textViewSystolicAve");
-        TextView tvDiastolicAvg = findViewById(R.id."textViewDiastolicAve");
-        TextView tvConditionAvg = findViewById(R.id."textViewConditionAve");
+        TextView tvSystolicAvg = findViewById(R.id.textViewSystolicAve);
+        TextView tvDiastolicAvg = findViewById(R.id.textViewDiastolicAve);
+        TextView tvConditionAvg = findViewById(R.id.textViewConditionAve);
 
         tvSystolicAvg.setText(Double.toString(systolicAverage));
         tvDiastolicAvg.setText(Double.toString(diastolicAverage));

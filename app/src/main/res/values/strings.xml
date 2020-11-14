@@ -1,5 +1,26 @@
 <resources>
     <string name="app_name">Ma_Kim</string>
     <string name="id_extra">id</string>
+    <string name="mtd_Text">Month to Date Report</string>
+    <string name="add_Report">Add Report</string>
+    <string name="error">ERROROROR</string>
+    <string name="hint_systolic">Input Systolic Reading</string>
+    <string name="hint_diastolic">Input Diastolic Reading</string>
+    <string name="edit_reading">Edit Reading</string>
+    <string name="user_id">User</string>
+    <string name="reading_date">Date</string>
+    <string name="reading_time">Time</string>
+    <string name="systolic_readings">Systolic Reading</string>
+    <string name="diastolic_reading">Diastolic Reading</string>
+    <string name="condition">Condition</string>
+    <string name="generate_report">Generate MTD Report</string>
+    <string name="systolic">Systolic</string>
+    <string name="diastolic">Diastolic</string>
 
+    <string-array name="users">
+        <item>father@home.com</item>
+        <item>mother@home.com</item>
+        <item>grandma@home.com</item>
+        <item>grandpa@home.com</item>
+    </string-array>
 </resources>
