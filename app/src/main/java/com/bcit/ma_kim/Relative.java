@@ -157,8 +157,8 @@ public class Relative extends Fragment {
 
     private void initAddButton() {
 
-        View add_btn = getView().findViewById(R.id.floating_add_btn);
-        add_btn.setOnClickListener(
+        View pop_btn = getView().findViewById(R.id.floating_pop_btn);
+        pop_btn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -191,14 +191,22 @@ public class Relative extends Fragment {
     private void setAnimation(boolean clicked) {
         View edit_btn = getView().findViewById(R.id.floating_edit_btn);
         View add_btn = getView().findViewById(R.id.floating_add_btn);
+        View pop_btn = getView().findViewById(R.id.floating_pop_btn);
+        View edit_text = getView().findViewById(R.id.floating_edit_text);
+        View add_text = getView().findViewById(R.id.floating_add_text);
 
         if (!clicked) {
             edit_btn.startAnimation(fromBottom);
-            add_btn.startAnimation(rotateOpen);
+            add_btn.startAnimation(fromBottom);
+            edit_text.startAnimation(fromBottom);
+            add_text.startAnimation(fromBottom);
+            pop_btn.startAnimation(rotateOpen);
         } else {
+            add_btn.startAnimation(toBottom);
             edit_btn.startAnimation(toBottom);
-            add_btn.startAnimation(rotateClose);
-
+            edit_text.startAnimation(toBottom);
+            add_text.startAnimation(toBottom);
+            pop_btn.startAnimation(rotateClose);
         }
     }
 
