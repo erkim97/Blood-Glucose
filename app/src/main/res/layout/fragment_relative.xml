@@ -140,6 +140,7 @@
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_add"
+        android:onClick="addReading"
         android:tint="@android:color/white"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/floating_edit_btn"

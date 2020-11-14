@@ -7,8 +7,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.database.DatabaseReference;
@@ -16,10 +18,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     private final List<Fragment> mFragmentList = new ArrayList<>();
+
 
 
     public class SectionsPageAdapter extends FragmentPagerAdapter {
@@ -64,5 +68,10 @@ public class MainActivity extends AppCompatActivity {
             pagerAdapter.addFragment(new Relative(name)); // Create the Relative Fragment
         }
         pager.setAdapter(pagerAdapter);
+    }
+
+    public void addReading(View view) {
+        Intent intent = new Intent(view.getContext(), EntryActivity.class);
+        startActivity(intent);
     }
 }
