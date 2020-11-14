@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MTDReportActivity" />
         <activity android:name=".EditEntryActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".EntryActivity">
         <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
