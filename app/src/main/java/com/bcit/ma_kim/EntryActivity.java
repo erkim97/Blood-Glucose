@@ -27,7 +27,7 @@ public class EntryActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference dbRef = database.getReference().child("BPReadings");
 
-    ArrayList<BloodPressureReadingActivity> bpReadingsList = new ArrayList<>();
+    ArrayList<BloodPressureReading> bpReadingsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class EntryActivity extends AppCompatActivity {
                 bpReadingsList.clear();
 
                 for (DataSnapshot studentSnapshot : dataSnapshot.getChildren()) {
-                    BloodPressureReadingActivity bpReading = studentSnapshot.getValue(BloodPressureReadingActivity.class);
+                    BloodPressureReading bpReading = studentSnapshot.getValue(BloodPressureReading.class);
                     bpReadingsList.add(bpReading);
                 }
 
@@ -85,7 +85,7 @@ public class EntryActivity extends AppCompatActivity {
 
     }
 
-    private void displayReadings(ArrayList<BloodPressureReadingActivity> bpReadingsList) {
+    private void displayReadings(ArrayList<BloodPressureReading> bpReadingsList) {
         for (int i = 0; i < bpReadingsList.size(); i++) {
         }
     }
@@ -106,7 +106,7 @@ public class EntryActivity extends AppCompatActivity {
 
 
         //creates new reading from input data
-        BloodPressureReadingActivity bpReading = new BloodPressureReadingActivity(spUser,
+        BloodPressureReading bpReading = new BloodPressureReading(spUser,
                 systolicReading,
                 diastolicReading);
 

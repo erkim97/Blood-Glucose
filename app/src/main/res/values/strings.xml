@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Ma_Kim</string>
+    <string name="family_member_header">Family member:</string>
+    <string name="sys_reading_header">Systolic Reading:</string>
+    <string name="dia_reading_header">DiastolicReading:</string>
+    <string name="avg_reading_header">Average Condition:</string>
     <string name="id_extra">id</string>
     <string name="mtd_Text">Month to Date Report</string>
     <string name="add_Report">Add Report</string>
@@ -17,10 +21,11 @@
     <string name="systolic">Systolic</string>
     <string name="diastolic">Diastolic</string>
 
-    <string-array name="users">
+    <string-array name="familyMember">
         <item>father@home.com</item>
         <item>mother@home.com</item>
         <item>grandma@home.com</item>
         <item>grandpa@home.com</item>
     </string-array>
+
 </resources>

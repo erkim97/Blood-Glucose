@@ -4,7 +4,7 @@ import android.icu.text.SimpleDateFormat;
 
 import java.util.Date;
 
-public class BloodPressureReadingActivity {
+public class BloodPressureReading {
     public String id;
     public String spUser;
     public String time;
@@ -13,10 +13,10 @@ public class BloodPressureReadingActivity {
     public String diastolicReading;
     public String condition;
 
-    public BloodPressureReadingActivity() {}
+    public BloodPressureReading() {}
 
 
-    public BloodPressureReadingActivity(String spUser, String systolicReading,
+    public BloodPressureReading(String spUser, String systolicReading,
                                         String diastolicReading) {
 
         this.id = String.valueOf(System.currentTimeMillis());

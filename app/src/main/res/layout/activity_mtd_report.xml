@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:ems="10"
-        android:entries="@array/users"
+        android:entries="@array/familyMember"
         android:hint="@string/user_id"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/btnGenReport"
