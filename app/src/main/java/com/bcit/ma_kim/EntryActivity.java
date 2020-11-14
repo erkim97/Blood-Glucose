@@ -50,25 +50,10 @@ public class EntryActivity extends AppCompatActivity {
                     BloodPressureReading bpReading = studentSnapshot.getValue(BloodPressureReading.class);
                     bpReadingsList.add(bpReading);
                 }
-
-                //Function to be implemented to display the readings
-                displayReadings(bpReadingsList);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-
-        /*
-        Placeholder button to link to month-to-date report activity for now
-         */
-        Button btnGoToMTDReport = findViewById(R.id.btnGoToMTDActivity);
-        btnGoToMTDReport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), MTDReportActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -82,12 +67,6 @@ public class EntryActivity extends AppCompatActivity {
                 addReading();
             }
         });
-
-    }
-
-    private void displayReadings(ArrayList<BloodPressureReading> bpReadingsList) {
-        for (int i = 0; i < bpReadingsList.size(); i++) {
-        }
     }
 
     //to be implemented
@@ -113,7 +92,7 @@ public class EntryActivity extends AppCompatActivity {
         //*TO BE IMPLEMENTED -> MAKE IT STAY ON SCREEN
         if (bpReading.condition.equals("HYPERTENSIVE")) {
             Toast.makeText(EntryActivity.this,
-                    "WARNIRNINGINIIG",
+                    "Warning, Hypertensive BP, please see a doctor immediately",
                     Toast.LENGTH_SHORT).show();
         }
         Task setValueTask = dbRef.child(bpReading.id).setValue(bpReading);
@@ -127,21 +106,4 @@ public class EntryActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*
-     final String id = bpReadingsList.get(i).id;
-
-            // Sets up edit textview button, send the reading id to the other activity
-            TextView editReading = getString(R.string.edit));
-            editReading.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Intent intent = new Intent(view.getContext(), EditEntryActivity.class);
-                    intent.putExtra("id", id);
-                    startActivity(intent);
-                }
-            });
-     */
-
 }
