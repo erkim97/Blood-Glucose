@@ -64,8 +64,15 @@ public class Relative extends Fragment {
         super.onActivityCreated(savedInstanceState);
         loadAnimations();
         initAddButton();
+        initStaticContent();
         dbRef = database.getReference(title);
         initFirebaseListener();
+    }
+
+    private void initStaticContent() {
+
+        TextView emailTextView = getView().findViewById(R.id.family_email);
+        emailTextView.setText(title + "@home.com");
     }
 
     private void initFirebaseListener() {
@@ -101,6 +108,8 @@ public class Relative extends Fragment {
             ++count;
         }
         int average = total / count;
+
+
 
         TextView sys_readings = getView().findViewById(R.id.sys_reading);
         sys_readings.setText(Integer.toString(average));

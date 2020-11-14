@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Ma_Kim</string>
+    <string name="family_member_header">Family member:</string>
+    <string name="sys_reading_header">Systolic Reading:</string>
+    <string name="dia_reading_header">DiastolicReading:</string>
+    <string name="avg_reading_header">Average Condition:</string>
     <array name="familyMember">
         <item>father@home.com</item>
         <item>mother@home.com</item>
