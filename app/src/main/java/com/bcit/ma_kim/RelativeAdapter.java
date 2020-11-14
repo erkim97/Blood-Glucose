@@ -43,10 +43,11 @@ public class RelativeAdapter extends RecyclerView.Adapter<RelativeAdapter.ViewHo
         TextView sys_reading = cardView.findViewById(R.id.sys_reading);
         TextView dia_reading = cardView.findViewById(R.id.dia_reading);
         TextView date = cardView.findViewById(R.id.date_entered);
+        TextView condition = cardView.findViewById(R.id.cond_reading);
         sys_reading.setText(cardView.getResources().getText(R.string.systolic_readings) + ": " + data[position].getSystolicReading());
-        dia_reading.setText(cardView.getResources().getText(R.string.systolic_readings) + ": " + data[position].getDiastolicReading());
+        dia_reading.setText(cardView.getResources().getText(R.string.diastolic_reading) + ": " + data[position].getDiastolicReading());
         date.setText(cardView.getResources().getText(R.string.reading_date) + ": " + data[position].getDate());
-
+        condition.setText(cardView.getResources().getText(R.string.condition_reading) + ": " + data[position].getCondition());
     }
 
     @Override
