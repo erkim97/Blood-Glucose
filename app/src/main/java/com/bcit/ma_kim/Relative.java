@@ -37,6 +37,7 @@ public class Relative extends Fragment {
     private Animation rotateClose;
     private Animation fromBottom;
     private Animation toBottom;
+    private RelativeAdapter adapter;
 
     public Relative() {
         // Required empty public constructor
@@ -67,10 +68,10 @@ public class Relative extends Fragment {
         initStaticContent();
         dbRef = database.getReference(title);
         initFirebaseListener();
+        initRecyclerView();
     }
 
     private void initStaticContent() {
-
         TextView emailTextView = getView().findViewById(R.id.family_email);
         emailTextView.setText(title + "@home.com");
     }
@@ -80,15 +81,21 @@ public class Relative extends Fragment {
         dbRef.child("data").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
-                final ArrayList<String> data = new ArrayList<>();
+                final ArrayList<BloodPressureReading> data = new ArrayList<>();
                 snapshot.getChildren().forEach(new Consumer<DataSnapshot>() {
                     @Override
                     public void accept(DataSnapshot dataSnapshot) {
-                        data.add(dataSnapshot.getValue().toString());
+                        data.add(dataSnapshot.getValue(BloodPressureReading.class));
                     }
                 });
 
                 Relative.this.updateFragment(data);
+                if (adapter != null) {
+                    adapter.setData(data.toArray(new BloodPressureReading[data.size()]));
+                    Log.e("NOTIFYING", "DATA CHANGED");
+                    adapter.notifyDataSetChanged();
+                }
+
             }
 
             @Override
@@ -98,27 +105,44 @@ public class Relative extends Fragment {
         });
     }
 
-    private void updateFragment(ArrayList<String> data) {
+    private void updateFragment(ArrayList<BloodPressureReading> data) {
 
-        int total = 0;
+        int totalS = 0;
+        int totalD = 0;
         int count = 0;
-        for (String s : data) {
-            int reading = Integer.parseInt(s);
-            total += reading;
+        String conditionAverage;
+        for (BloodPressureReading s : data) {
+            int readingD = Integer.parseInt(s.getDiastolicReading());
+            int readingS = Integer.parseInt(s.getSystolicReading());
+
+            totalS += readingS;
+            totalD += readingD;
+
             ++count;
         }
-        int average = total / count;
+        int systolicAverage = totalS / count;
+        int diastolicAverage = totalD / count;
 
-
+        if (systolicAverage > 180 || diastolicAverage > 120) {
+            conditionAverage = ConditionTypes.HYPERTENSIVE.toString();
+        } else if (systolicAverage >= 140 || diastolicAverage >= 90) {
+            conditionAverage = ConditionTypes.STAGE2.toString();
+        } else if (systolicAverage >= 130 || diastolicAverage >= 80) {
+            conditionAverage = ConditionTypes.STAGE1.toString();
+        } else if (systolicAverage >= 120) {
+            conditionAverage = ConditionTypes.ELEVATED.toString();
+        } else {
+            conditionAverage = ConditionTypes.NORMAL.toString();
+        }
 
         TextView sys_readings = getView().findViewById(R.id.sys_reading);
-        sys_readings.setText(Integer.toString(average));
+        sys_readings.setText(Integer.toString(systolicAverage));
 
         TextView dia_readings = getView().findViewById(R.id.dia_reading);
-        dia_readings.setText(Integer.toString(average));
+        dia_readings.setText(Integer.toString(diastolicAverage));
 
         TextView average_condition = getView().findViewById(R.id.average_condition);
-        average_condition.setText(Integer.toString(average));
+        average_condition.setText((conditionAverage));
 
 
     }
@@ -176,5 +200,15 @@ public class Relative extends Fragment {
             add_btn.startAnimation(rotateClose);
 
         }
+    }
+
+    private void initRecyclerView() {
+        RecyclerView relativeRecycler = getView().findViewById(R.id.recyclerView);
+        RelativeAdapter adapter = new RelativeAdapter(this);
+        this.adapter = adapter;
+        relativeRecycler.setAdapter(adapter);
+        GridLayoutManager lm = new GridLayoutManager(getView().getContext(), 1);
+        relativeRecycler.setLayoutManager(lm);
+        Log.e("RELATIVE", "COMPLETE INIT RECYCLER");
     }
 }
