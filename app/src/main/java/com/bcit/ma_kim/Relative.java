@@ -63,13 +63,26 @@ public class Relative extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+
         super.onActivityCreated(savedInstanceState);
+
+        if(savedInstanceState != null){
+            this.title = savedInstanceState.getString("relative");
+        }
+
         loadAnimations();
         initButtons();
         initStaticContent();
         dbRef = database.getReference(title);
         initFirebaseListener();
         initRecyclerView();
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString("relative", this.title);
+        super.onSaveInstanceState(savedInstanceState);
     }
 
     private void initStaticContent() {

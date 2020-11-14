@@ -6,7 +6,6 @@
     <string name="avg_reading_header">Average Condition:</string>
     <string name="id_extra">id</string>
     <string name="mtd_Text">Month to Date Report</string>
-    <string name="add_Report">Add Report</string>
     <string name="error">ERROROROR</string>
     <string name="hint_systolic">Input Systolic Reading</string>
     <string name="hint_diastolic">Input Diastolic Reading</string>
@@ -23,6 +22,9 @@
     <string name="diastolic">Diastolic</string>
     <string name="add_blood_pressure_txt">Add Blood Pressure</string>
     <string name="edit_blood_pressure_txt">Edit Blood Pressure</string>
+    <string name="systolic_pressure">Systolic Pressure</string>
+    <string name="diastolic_pressure">Diastolic Pressure</string>
+    <string name="add_reading"> Add Reading </string>
 
     <string-array name="familyMember">
         <item>father@home.com</item>
