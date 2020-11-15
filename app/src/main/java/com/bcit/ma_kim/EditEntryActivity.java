@@ -4,6 +4,9 @@ package com.bcit.ma_kim;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,8 +19,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.arch.core.internal.SafeIterableMap;
 
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -66,29 +71,44 @@ public class EditEntryActivity extends AppCompatActivity {
     //Uses the firebase id of the reading to replace old one
     public void editReading(View view){
 
-        EditText editText = findViewById(R.id.textViewSystolicReading);
-        String systolicReading = editText.getText().toString();
-        editText.setText("");
+        EditText editText1 = findViewById(R.id.textViewSystolicReading);
+        String systolicReading = editText1.getText().toString();
 
-        editText = findViewById(R.id.textViewDiastolicReading);
-        String diastolicReading = editText.getText().toString();
-        editText.setText("");
+        EditText editText2 = findViewById(R.id.textViewDiastolicReading);
+        String diastolicReading = editText2.getText().toString();
 
-        BloodPressureReading updatedBPReading = (BloodPressureReading) getIntent().getSerializableExtra("BloodPressure");
-        modifyReading(updatedBPReading, null, null, null); //TODO
-        Task setValueTask = myRef.child(updatedBPReading.getId()).setValue(updatedBPReading);
+        if(editText1.getText().toString().trim().isEmpty() || editText2.getText().toString().trim().isEmpty() ||
+                Integer.parseInt(editText1.getText().toString()) > 300 ||
+                Integer.parseInt(editText2.getText().toString()) > 300 ||
+                Integer.parseInt(editText1.getText().toString()) < 30 ||
+                Integer.parseInt(editText2.getText().toString()) < 30)
+        {
+         Toast.makeText(EditEntryActivity.this, "INVALID INPUT", Toast.LENGTH_SHORT).show();
+        } else {
 
-        setValueTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditEntryActivity.this,
-                        getString(R.string.error) + e.toString(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+            BloodPressureReading updatedBPReading = (BloodPressureReading) getIntent().getSerializableExtra("BloodPressure");
+            modifyReading(updatedBPReading, systolicReading, diastolicReading, null); //TODO
+            Task setValueTask = myRef.child(updatedBPReading.getId()).setValue(updatedBPReading);
 
+            setValueTask.addOnSuccessListener(new OnSuccessListener() {
+                @Override
+                public void onSuccess(Object o) {
+                    Toast.makeText(EditEntryActivity.this,
+                            getString(R.string.successAdd),
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
 
-        finish();
+            setValueTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(EditEntryActivity.this,
+                            getString(R.string.error) + e.toString(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
     }
 
     private void initStatic(){
@@ -116,6 +136,15 @@ public class EditEntryActivity extends AppCompatActivity {
             }
 
         };
+        dateText.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(EditEntryActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         // TimePicker
         //Text to fill time with

@@ -25,6 +25,10 @@
     <string name="systolic_pressure">Systolic Pressure</string>
     <string name="diastolic_pressure">Diastolic Pressure</string>
     <string name="add_reading"> Add Reading </string>
+    <string name="success">Edited values successfully!</string>
+    <string name="successAdd">Added Reading Successfully!</string>
+    <string name="clearText">Clear Reading</string>
+    <string name="time">Time</string>
 
     <string-array name="familyMember">
         <item>father@home.com</item>

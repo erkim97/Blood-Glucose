@@ -21,6 +21,13 @@
         android:layout_marginLeft="4dp"
         android:layout_marginBottom="4dp" />
 
+        <TextView
+            android:id="@+id/time_entered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginBottom="4dp" />
+
     <TextView
         android:id="@+id/sys_reading"
         android:layout_width="wrap_content"
@@ -41,6 +48,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tx_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginBottom="4dp"
+            />
     </LinearLayout>
 
 

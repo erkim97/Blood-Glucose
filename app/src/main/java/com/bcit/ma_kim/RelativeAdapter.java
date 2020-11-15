@@ -12,6 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
+
 public class RelativeAdapter extends RecyclerView.Adapter<RelativeAdapter.ViewHolder> {
 
     private BloodPressureReading[] data = null;
@@ -45,11 +51,16 @@ public class RelativeAdapter extends RecyclerView.Adapter<RelativeAdapter.ViewHo
         TextView sys_reading = cardView.findViewById(R.id.sys_reading);
         TextView dia_reading = cardView.findViewById(R.id.dia_reading);
         TextView date = cardView.findViewById(R.id.date_entered);
+        TextView time = cardView.findViewById(R.id.time_entered);
         TextView condition = cardView.findViewById(R.id.cond_reading);
+        TextView clear = cardView.findViewById(R.id.tx_clear);
+
         sys_reading.setText(cardView.getResources().getText(R.string.systolic_readings) + ": " + data[position].getSystolicReading());
         dia_reading.setText(cardView.getResources().getText(R.string.diastolic_reading) + ": " + data[position].getDiastolicReading());
         date.setText(cardView.getResources().getText(R.string.reading_date) + ": " + data[position].getDate());
+        time.setText(cardView.getResources().getText(R.string.time) + ": " + data[position].getTime());
         condition.setText(cardView.getResources().getText(R.string.condition_reading) + ": " + data[position].getCondition());
+        clear.setText(R.string.clearText);
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +71,6 @@ public class RelativeAdapter extends RecyclerView.Adapter<RelativeAdapter.ViewHo
                 cardView.getContext().startActivity(i);
             }
         });
-
     }
 
     @Override
