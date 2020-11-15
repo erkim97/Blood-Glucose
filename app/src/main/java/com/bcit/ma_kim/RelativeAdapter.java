@@ -12,6 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.FirebaseDatabase;
+
+import org.w3c.dom.Text;
+
 public class RelativeAdapter extends RecyclerView.Adapter<RelativeAdapter.ViewHolder> {
 
     private BloodPressureReading[] data = null;
@@ -46,10 +50,13 @@ public class RelativeAdapter extends RecyclerView.Adapter<RelativeAdapter.ViewHo
         TextView dia_reading = cardView.findViewById(R.id.dia_reading);
         TextView date = cardView.findViewById(R.id.date_entered);
         TextView condition = cardView.findViewById(R.id.cond_reading);
+        TextView clear = cardView.findViewById(R.id.tx_clear);
+
         sys_reading.setText(cardView.getResources().getText(R.string.systolic_readings) + ": " + data[position].getSystolicReading());
         dia_reading.setText(cardView.getResources().getText(R.string.diastolic_reading) + ": " + data[position].getDiastolicReading());
         date.setText(cardView.getResources().getText(R.string.reading_date) + ": " + data[position].getDate());
         condition.setText(cardView.getResources().getText(R.string.condition_reading) + ": " + data[position].getCondition());
+        clear.setText(R.string.clearText);
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +67,27 @@ public class RelativeAdapter extends RecyclerView.Adapter<RelativeAdapter.ViewHo
                 cardView.getContext().startActivity(i);
             }
         });
+
+/*
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference()
+                        .child(RelativeAdapter.this.relative.getTitle()).child("id".toString()).removeValue()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d("Delete", "Report has been deleted");
+                                } else {
+                                    Log.d("Delete", "Report couldn't be deleted");
+                                }
+                            }
+                        });
+            }
+        });
+
+ */
 
     }
 

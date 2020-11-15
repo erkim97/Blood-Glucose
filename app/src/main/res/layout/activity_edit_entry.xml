@@ -52,6 +52,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/systolic_readings"
+            android:inputType="number"
             android:textSize="15sp"/>
 
         <EditText
@@ -60,6 +61,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/diastolic_reading"
+            android:inputType="number"
             android:textSize="15sp"/>
 
     </LinearLayout>
