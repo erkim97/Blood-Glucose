@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.192">
 
         <TableRow
-            android:layout_width="match_parent"
+            android:layout_width="290dp"
             android:layout_height="wrap_content">
 
             <TextView
@@ -29,12 +29,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Month-to-date average readings for month of Nov 2020" />
-        </TableRow>
+                android:text="Month-to-date average readings for month of: " />
 
+
+
+        </TableRow>
 
         <TableRow>
 
+            <Spinner
+                android:id="@+id/month_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:entries="@array/month" />
+
+
+        </TableRow>
+
+        <TableRow>
+        <Spinner
+            android:id="@+id/year_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        </TableRow>
+
+        <TableRow>
             <TextView
                 android:id="@+id/family_member_header"
                 android:layout_width="0dp"

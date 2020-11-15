@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.components.Lazy;
@@ -26,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.function.Consumer;
 
 public class Relative extends Fragment {
@@ -88,6 +91,20 @@ public class Relative extends Fragment {
     private void initStaticContent() {
         TextView emailTextView = getView().findViewById(R.id.family_email);
         emailTextView.setText(title + "@home.com");
+
+        ArrayList<String> years = new ArrayList<String>();
+        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+        for (int i = thisYear; i <= 2040; i++) {
+            years.add(Integer.toString(i));
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, years);
+
+        Spinner month_spinner = getView().findViewById(R.id.month_spinner);
+        Spinner year_spinner = getView().findViewById(R.id.year_spinner);
+
+        int indexOfMonth = Calendar.getInstance().get(Calendar.MONTH);
+        month_spinner.setSelection(indexOfMonth);
+        year_spinner.setAdapter(adapter);
     }
 
     private void initFirebaseListener() {
@@ -100,6 +117,7 @@ public class Relative extends Fragment {
                     @Override
                     public void accept(DataSnapshot dataSnapshot) {
                         data.add(dataSnapshot.getValue(BloodPressureReading.class));
+
                     }
                 });
 

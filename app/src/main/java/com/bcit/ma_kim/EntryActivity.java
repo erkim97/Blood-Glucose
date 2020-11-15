@@ -46,6 +46,9 @@ public class EntryActivity extends AppCompatActivity {
         } catch (NullPointerException e) {
         }
 
+        Spinner spTextSelect = (Spinner) findViewById(R.id.spinnerID);
+
+
         setContentView(R.layout.activity_entry);
 
         dbRef.addValueEventListener(new ValueEventListener() {
@@ -75,6 +78,16 @@ public class EntryActivity extends AppCompatActivity {
                 addReading();
             }
         });
+    }
+    private void selectSpinnerValue(Spinner spinner, String myString)
+    {
+        int index = 0;
+        for(int i = 0; i < spinner.getCount(); i++){
+            if(spinner.getItemAtPosition(i).toString().equals(myString)){
+                spinner.setSelection(i);
+                break;
+            }
+        }
     }
 
     //to be implemented
