@@ -26,7 +26,7 @@ public class BloodPressureReading implements Serializable {
 
         //Datetime string
         Date currentDate = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
         String dateTime = dateTimeFormatter.format(currentDate);
         String[] splitDateTime = dateTime.split(" ");
         this.date = splitDateTime[0];
@@ -67,30 +67,12 @@ public class BloodPressureReading implements Serializable {
         this.spUser = spUser;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime() {
-        Date currentDate = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        String dateTime = dateTimeFormatter.format(currentDate);
-        String[] splitDateTime = dateTime.split(" ");
-        this.date = splitDateTime[0];
-        this.time = splitDateTime[1];
-    }
-
     public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
-        Date currentDate = new Date(System.currentTimeMillis());
-        SimpleDateFormat dateTimeFormatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        String dateTime = dateTimeFormatter.format(currentDate);
-        String[] splitDateTime = dateTime.split(" ");
-        this.date = splitDateTime[0];
-        this.time = splitDateTime[1];
+        this.date = date;
     }
 
     public String getSystolicReading() {

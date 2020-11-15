@@ -6,63 +6,91 @@
     android:layout_height="match_parent"
     tools:context=".EditEntryActivity">
 
-    <LinearLayout
+    <TableLayout
         android:id="@+id/inputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_width="350dp"
+        android:layout_height="259dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-        <Button
-            android:id="@+id/bt_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="editReading"
-            android:text="@string/edit_reading" />
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/readingDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/reading_date"
-            android:paddingStart="4dp"
-            android:textSize="15sp" />
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/reading_date" />
+
+            <EditText
+                android:id="@+id/readingDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:editable="false"
+                android:hint="@string/edit_reading_hint" />
+        </TableRow>
 
 
-        <TextView
-            android:id="@+id/readingTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
-            android:layout_marginBottom="0dp"
-            android:ems="10"
-            android:hint="@string/reading_time"
-            android:paddingStart="4dp"
-            android:textSize="15sp" />
+        <TableRow>
 
-        <EditText
-            android:id="@+id/textViewSystolicReading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/systolic_readings"
-            android:inputType="number"
-            android:textSize="15sp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/systolic_pressure" />
 
-        <EditText
-            android:id="@+id/textViewDiastolicReading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/diastolic_reading"
-            android:inputType="number"
-            android:textSize="15sp"/>
+            <EditText
+                android:id="@+id/textViewSystolicReading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/systolic_readings"
+                android:inputType="number" />
+        </TableRow>
 
-    </LinearLayout>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/diastolic_pressure" />
+
+            <EditText
+                android:id="@+id/textViewDiastolicReading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/diastolic_reading"
+                android:inputType="number" />
+        </TableRow>
+
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/bt_delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:onClick="deleteReading"
+                android:text="@string/delete_reading" />
+
+            <Button
+                android:id="@+id/bt_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:onClick="editReading"
+                android:text="@string/edit_reading" />
+
+        </TableRow>
+    </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

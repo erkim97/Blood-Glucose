@@ -60,11 +60,11 @@
 
         <Button
             android:id="@+id/btnAddReport"
-            app:icon="@drawable/ic_pop"
             style="@style/Widget.MaterialComponents.Button.Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_reading" />
+            android:text="@string/add_reading"
+            app:icon="@drawable/ic_pop" />
 
     </TableLayout>
 

@@ -7,8 +7,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="AlertDialogCustom" parent="@android:style/Theme.Dialog">
-        <item name="android:textColor">#00FF00</item>
-        <item name="android:typeface">monospace</item>
-        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TabLayoutStyle" parent="Base.Widget.Design.TabLayout">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
     </style>
 </resources>
