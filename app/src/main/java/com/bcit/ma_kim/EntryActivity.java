@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,14 +15,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class EntryActivity extends AppCompatActivity {
 
@@ -36,65 +33,17 @@ public class EntryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         relative = getIntent().getStringExtra("relative");
-        dbRef = database.getReference(relative).child("data");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry);
+        initStatic();
 
-        try {
-            this.getSupportActionBar().hide();
-        } catch (NullPointerException e) {
-        }
-
-        Spinner spTextSelect = (Spinner) findViewById(R.id.spinnerID);
-
-
-        setContentView(R.layout.activity_entry);
-
-        dbRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                bpReadingsList.clear();
-
-                for (DataSnapshot studentSnapshot : dataSnapshot.getChildren()) {
-                    BloodPressureReading bpReading = studentSnapshot.getValue(BloodPressureReading.class);
-                    bpReadingsList.add(bpReading);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-
-        });
-
-        /*
-        Placeholder button to add
-         */
-        Button addReportBtn = findViewById(R.id.btnAddReport);;
-        addReportBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addReading();
-            }
-        });
-    }
-    private void selectSpinnerValue(Spinner spinner, String myString)
-    {
-        int index = 0;
-        for(int i = 0; i < spinner.getCount(); i++){
-            if(spinner.getItemAtPosition(i).toString().equals(myString)){
-                spinner.setSelection(i);
-                break;
-            }
-        }
     }
 
-    //to be implemented
     private void addReading() {
-        Spinner spText = (Spinner) findViewById(R.id.spinnerID);
-        String spUser = spText.getSelectedItem().toString();
 
+
+        Spinner spText = (Spinner) findViewById(R.id.spinnerID);
+        String spUser = getName(spText.getSelectedItem().toString());
         EditText editText1 = findViewById(R.id.textViewSystolic);
         String systolicReading = editText1.getText().toString();
 
@@ -109,37 +58,116 @@ public class EntryActivity extends AppCompatActivity {
             Toast.makeText(EntryActivity.this, "INVALID INPUT", Toast.LENGTH_SHORT).show();
         } else {
 
-            //creates new reading from input data
-            BloodPressureReading bpReading = new BloodPressureReading(spUser,
+
+            final BloodPressureReading bpReading = new BloodPressureReading(spUser,
                     systolicReading,
                     diastolicReading);
 
+            dbRef = database.getReference(bpReading.getSpUser()).child("data");
+
             if (bpReading.condition.equals("HYPERTENSIVE")) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(this,R.style.AlertDialogCustom);
-                alert.setTitle("Hypertensive Reading Added!");
-                alert.setMessage("Please go see a doctor immediately!");
-                AlertDialog alertdialog = alert.create();
+                AlertDialog.Builder builder = new MaterialAlertDialogBuilder(this);
+                builder.setTitle("Hypertensive Reading Added!");
+                builder.setMessage("The reading you entered is in the Hypertensive Crisis Range. Are you sure?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Task setValueTask = dbRef.child(bpReading.id).setValue(bpReading);
+                        setValueTask.addOnSuccessListener(new OnSuccessListener() {
+                                                              @Override
+                                                              public void onSuccess(Object o) {
+                                                                  Toast.makeText(EntryActivity.this,
+                                                                          getString(R.string.success),
+                                                                          Toast.LENGTH_SHORT).show();
+                                                              }
+
+                                                          }
+                        );
+                        setValueTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(EntryActivity.this,
+                                        getString(R.string.error) + e.toString(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        dialog.dismiss();
+
+                    }
+                }).setNegativeButton("Cancel", null).setCancelable(false);
+                AlertDialog alertdialog = builder.create();
                 alertdialog.show();
             }
+            else{
+                Task setValueTask = dbRef.child(bpReading.id).setValue(bpReading);
+                setValueTask.addOnSuccessListener(new OnSuccessListener() {
+                                                      @Override
+                                                      public void onSuccess(Object o) {
+                                                          Toast.makeText(EntryActivity.this,
+                                                                  getString(R.string.success),
+                                                                  Toast.LENGTH_SHORT).show();
+                                                      }
 
-            Task setValueTask = dbRef.child(bpReading.id).setValue(bpReading);
-            setValueTask.addOnSuccessListener(new OnSuccessListener() {
-                @Override
-                public void onSuccess(Object o) {
-                    Toast.makeText(EntryActivity.this,
-                            getString(R.string.success),
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+                                                  }
+                );
+                setValueTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(EntryActivity.this,
+                                getString(R.string.error) + e.toString(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
 
-            setValueTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(EntryActivity.this,
-                            getString(R.string.error) + e.toString(),
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
         }
+    }
+
+    private void initStatic(){
+        try {
+            this.getSupportActionBar().hide();
+        } catch (NullPointerException e) {
+        }
+
+
+        /*
+        Placeholder button to add
+         */
+        Button addReportBtn = findViewById(R.id.btnAddReport);
+        ;
+        addReportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addReading();
+            }
+        });
+
+        Spinner spText = (Spinner) findViewById(R.id.spinnerID);
+        switch(relative) {
+            case "father":{
+                spText.setSelection(0);
+                break;
+            }
+            case "mother":{
+                spText.setSelection(1);
+                break;
+            }
+            case "grandma":{
+                spText.setSelection(2);
+                break;
+            }
+            case "grandpa":{
+                spText.setSelection(3);
+                break;
+            } default:{
+                spText.setSelection(0);
+            }
+        }
+    }
+
+    private String getName(String relative){
+        int indexOfFirstDot = relative.indexOf('@'); // Find the first occurrence of @
+        relative = relative.substring(0,indexOfFirstDot); // Create a new string so you just get the name of the person ABCD@home.com -> ABCD
+        return relative;
     }
 }

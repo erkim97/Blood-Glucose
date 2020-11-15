@@ -11,8 +11,7 @@
     <string name="hint_diastolic">Input Diastolic Reading</string>
     <string name="edit_reading">Edit Reading</string>
     <string name="user_id">User</string>
-    <string name="reading_date">Date</string>
-    <string name="reading_time">Time</string>
+    <string name="reading_date">Day</string>
     <string name="systolic_readings">Systolic Reading</string>
     <string name="diastolic_reading">Diastolic Reading</string>
     <string name="condition_reading">Condition Reading</string>
@@ -28,7 +27,10 @@
     <string name="success">Edited values successfully!</string>
     <string name="successAdd">Added Reading Successfully!</string>
     <string name="clearText">Clear Reading</string>
-    <string name="time">Time</string>
+    <string name="successEdit">Edited Successfully</string>
+    <string name="errorEdit">Failed to edit reading</string>
+    <string name="delete_reading">Delete</string>
+    <string name="edit_reading_hint">mm/dd/yyyy</string>
 
        <string-array name="familyMember">
         <item>father@home.com</item>
