@@ -32,11 +32,27 @@
     <string name="delete_reading">Delete</string>
     <string name="edit_reading_hint">mm/dd/yyyy</string>
 
-    <string-array name="familyMember">
+       <string-array name="familyMember">
         <item>father@home.com</item>
         <item>mother@home.com</item>
         <item>grandma@home.com</item>
         <item>grandpa@home.com</item>
     </string-array>
+
+    <string-array name="month">
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>May</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Aug</item>
+        <item>Sept</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dec</item>
+    </string-array>
+
 
 </resources>
