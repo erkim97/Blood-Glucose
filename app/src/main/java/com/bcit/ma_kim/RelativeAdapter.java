@@ -1,22 +1,14 @@
 package com.bcit.ma_kim;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
 
 public class RelativeAdapter extends RecyclerView.Adapter<RelativeAdapter.ViewHolder> {
 
@@ -46,7 +38,6 @@ public class RelativeAdapter extends RecyclerView.Adapter<RelativeAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull RelativeAdapter.ViewHolder holder, final int position) {
-        Log.e("ADAPTER", "binding adapter");
         final CardView cardView = holder.cardView;
         TextView sys_reading = cardView.findViewById(R.id.sys_reading);
         TextView dia_reading = cardView.findViewById(R.id.dia_reading);

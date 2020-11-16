@@ -4,7 +4,6 @@ package com.bcit.ma_kim;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -22,10 +21,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 /*
@@ -58,7 +55,7 @@ public class EditEntryActivity extends AppCompatActivity {
 
     // Updates textview with calendar picker selection
     private void updateDate(TextView textView) {
-        String myFormat = "MM/dd/yyyy";
+        String myFormat = "yyyy/MM/dd";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         textView.setText(sdf.format(myCalendar.getTime()));
     }
@@ -76,10 +73,10 @@ public class EditEntryActivity extends AppCompatActivity {
         String dateString = dateText.getText().toString();
 
         if (editText1.getText().toString().trim().isEmpty() || editText2.getText().toString().trim().isEmpty() ||
-                Integer.parseInt(editText1.getText().toString()) > 300 ||
-                Integer.parseInt(editText2.getText().toString()) > 300 ||
-                Integer.parseInt(editText1.getText().toString()) < 30 ||
-                Integer.parseInt(editText2.getText().toString()) < 30) {
+                Integer.parseInt(editText1.getText().toString().trim()) > 300 ||
+                Integer.parseInt(editText2.getText().toString().trim()) > 300 ||
+                Integer.parseInt(editText1.getText().toString().trim()) < 30 ||
+                Integer.parseInt(editText2.getText().toString().trim()) < 30) {
             Toast.makeText(EditEntryActivity.this, "INVALID INPUT", Toast.LENGTH_SHORT).show();
 
         } else {
@@ -113,7 +110,7 @@ public class EditEntryActivity extends AppCompatActivity {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
                                                 Toast.makeText(EditEntryActivity.this,
-                                                        getString(R.string.error) + e.toString(),
+                                                        getString(R.string.firebase_edit_error) + e.toString(),
                                                         Toast.LENGTH_SHORT).show();
                                             }
                                         });
@@ -142,7 +139,7 @@ public class EditEntryActivity extends AppCompatActivity {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(EditEntryActivity.this,
-                                        getString(R.string.error) + e.toString(),
+                                        getString(R.string.firebase_edit_error) + e.toString(),
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -223,7 +220,7 @@ public class EditEntryActivity extends AppCompatActivity {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Toast.makeText(EditEntryActivity.this,
-                                            getString(R.string.error) + e.toString(),
+                                            getString(R.string.firebase_edit_error) + e.toString(),
                                             Toast.LENGTH_SHORT).show();
                                 }
                             });

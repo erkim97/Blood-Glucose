@@ -33,6 +33,22 @@
                 android:text="Month-to-date average readings for month of Nov 2020" />
         </TableRow>
 
+        <TableRow android:padding="10dp">
+
+            <Spinner
+                android:id="@+id/month_spinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:entries="@array/month" />
+
+
+            <Spinner
+                android:id="@+id/year_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </TableRow>
 
         <TableRow>
 
@@ -128,48 +144,21 @@
         app:layout_constraintBottom_toBottomOf="@+id/floating_add_btn"
         app:layout_constraintEnd_toStartOf="@+id/floating_add_btn" />
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_add_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
         android:backgroundTint="@color/colorAccent"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_add"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/floating_edit_btn"
-        app:layout_constraintStart_toStartOf="@+id/floating_edit_btn"
-        app:tint="@android:color/white" />
-
-
-    <TextView
-        android:id="@+id/floating_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="20dp"
-        android:text="@string/edit_blood_pressure_txt"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/floating_edit_btn"
-        app:layout_constraintEnd_toStartOf="@+id/floating_edit_btn" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_edit_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/colorAccent"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_edit"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/floating_pop_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/floating_pop_btn"
         app:tint="@android:color/white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

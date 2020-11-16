@@ -4,12 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -19,14 +22,18 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class EntryActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference dbRef;
     private String relative;
-
+    private TextView dateText;
+    private static Calendar myCalendar = Calendar.getInstance();
     ArrayList<BloodPressureReading> bpReadingsList = new ArrayList<>();
 
     @Override
@@ -50,18 +57,21 @@ public class EntryActivity extends AppCompatActivity {
         EditText editText2 = findViewById(R.id.textViewDiastolic);
         String diastolicReading = editText2.getText().toString();
 
+        EditText dateTextView = findViewById(R.id.readingDate);
+        String dateString = dateTextView.getText().toString();
+
         if (editText1.getText().toString().trim().isEmpty() || editText2.getText().toString().trim().isEmpty() ||
-                Integer.parseInt(editText1.getText().toString()) > 300 ||
-                Integer.parseInt(editText2.getText().toString()) > 300 ||
-                Integer.parseInt(editText1.getText().toString()) < 30 ||
-                Integer.parseInt(editText2.getText().toString()) < 30) {
+                Integer.parseInt(editText1.getText().toString().trim()) > 300 ||
+                Integer.parseInt(editText2.getText().toString().trim()) > 300 ||
+                Integer.parseInt(editText1.getText().toString().trim()) < 30 ||
+                Integer.parseInt(editText2.getText().toString().trim()) < 30) {
             Toast.makeText(EntryActivity.this, "INVALID INPUT", Toast.LENGTH_SHORT).show();
         } else {
 
 
             final BloodPressureReading bpReading = new BloodPressureReading(spUser,
                     systolicReading,
-                    diastolicReading);
+                    diastolicReading, dateString);
 
             dbRef = database.getReference(bpReading.getSpUser()).child("data");
 
@@ -73,21 +83,18 @@ public class EntryActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Task setValueTask = dbRef.child(bpReading.id).setValue(bpReading);
-                        setValueTask.addOnSuccessListener(new OnSuccessListener() {
-                                                              @Override
-                                                              public void onSuccess(Object o) {
-                                                                  Toast.makeText(EntryActivity.this,
-                                                                          getString(R.string.success),
-                                                                          Toast.LENGTH_SHORT).show();
-                                                              }
-
-                                                          }
+                        setValueTask.addOnSuccessListener(
+                                o -> {
+                                    Toast.makeText(EntryActivity.this,
+                                            getString(R.string.success),
+                                            Toast.LENGTH_SHORT).show();
+                                            EntryActivity.this.finish(); }
                         );
                         setValueTask.addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(EntryActivity.this,
-                                        getString(R.string.error) + e.toString(),
+                                        getString(R.string.firebase_edit_error) + e.toString(),
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -97,24 +104,19 @@ public class EntryActivity extends AppCompatActivity {
                 }).setNegativeButton("Cancel", null).setCancelable(false);
                 AlertDialog alertdialog = builder.create();
                 alertdialog.show();
-            }
-            else{
+            } else {
                 Task setValueTask = dbRef.child(bpReading.id).setValue(bpReading);
-                setValueTask.addOnSuccessListener(new OnSuccessListener() {
-                                                      @Override
-                                                      public void onSuccess(Object o) {
-                                                          Toast.makeText(EntryActivity.this,
-                                                                  getString(R.string.success),
-                                                                  Toast.LENGTH_SHORT).show();
-                                                      }
-
-                                                  }
+                setValueTask.addOnSuccessListener(o -> {
+                            Toast.makeText(EntryActivity.this,
+                                    getString(R.string.success),
+                                    Toast.LENGTH_SHORT).show();
+                                    EntryActivity.this.finish(); }
                 );
                 setValueTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(EntryActivity.this,
-                                getString(R.string.error) + e.toString(),
+                                getString(R.string.firebase_edit_error) + e.toString(),
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -123,11 +125,42 @@ public class EntryActivity extends AppCompatActivity {
         }
     }
 
-    private void initStatic(){
+    // Updates textview with calendar picker selection
+    private void updateDate(TextView textView) {
+        String myFormat = "yyyy/MM/dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        textView.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    private void initStatic() {
+        dateText = findViewById(R.id.readingDate);
+
         try {
             this.getSupportActionBar().hide();
         } catch (NullPointerException e) {
         }
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateDate(dateText);
+            }
+
+        };
+        dateText.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(EntryActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
 
         /*
@@ -143,31 +176,32 @@ public class EntryActivity extends AppCompatActivity {
         });
 
         Spinner spText = (Spinner) findViewById(R.id.spinnerID);
-        switch(relative) {
-            case "father":{
+        switch (relative) {
+            case "father": {
                 spText.setSelection(0);
                 break;
             }
-            case "mother":{
+            case "mother": {
                 spText.setSelection(1);
                 break;
             }
-            case "grandma":{
+            case "grandma": {
                 spText.setSelection(2);
                 break;
             }
-            case "grandpa":{
+            case "grandpa": {
                 spText.setSelection(3);
                 break;
-            } default:{
+            }
+            default: {
                 spText.setSelection(0);
             }
         }
     }
 
-    private String getName(String relative){
+    private String getName(String relative) {
         int indexOfFirstDot = relative.indexOf('@'); // Find the first occurrence of @
-        relative = relative.substring(0,indexOfFirstDot); // Create a new string so you just get the name of the person ABCD@home.com -> ABCD
+        relative = relative.substring(0, indexOfFirstDot); // Create a new string so you just get the name of the person ABCD@home.com -> ABCD
         return relative;
     }
 }
