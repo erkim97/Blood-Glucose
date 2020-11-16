@@ -57,9 +57,7 @@ public class EntryActivity extends AppCompatActivity {
         EditText editText2 = findViewById(R.id.textViewDiastolic);
         String diastolicReading = editText2.getText().toString();
 
-        EditText dateTextView = findViewById(R.id.readingDate);
-        String dateString = dateTextView.getText().toString();
-
+        String dateString = "";
         if (editText1.getText().toString().trim().isEmpty() || editText2.getText().toString().trim().isEmpty() ||
                 Integer.parseInt(editText1.getText().toString().trim()) > 300 ||
                 Integer.parseInt(editText2.getText().toString().trim()) > 300 ||
@@ -152,16 +150,6 @@ public class EntryActivity extends AppCompatActivity {
             }
 
         };
-        dateText.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(EntryActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
 
         /*
         Placeholder button to add
