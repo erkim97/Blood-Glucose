@@ -18,12 +18,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Spinner
-            android:id="@+id/spinnerID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/familyMember"
-            android:gravity="center" />
+        <TableRow>
+
+            <Spinner
+                android:id="@+id/spinnerID"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:entries="@array/familyMember"
+                android:gravity="center" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/reading_date" />
+
+            <EditText
+                android:id="@+id/readingDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:editable="false"
+                android:hint="@string/edit_reading_hint" />
+        </TableRow>
 
         <TableRow>
 
@@ -37,7 +59,8 @@
                 android:id="@+id/textViewSystolic"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:inputType="number" />
         </TableRow>
 
 
@@ -53,8 +76,8 @@
                 android:id="@+id/textViewDiastolic"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:inputType="number" />
         </TableRow>
 
 

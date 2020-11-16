@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MTDReportActivity" />
         <activity android:name=".EditEntryActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -17,8 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EntryActivity">
-
+        <activity android:name=".EntryActivity"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 
