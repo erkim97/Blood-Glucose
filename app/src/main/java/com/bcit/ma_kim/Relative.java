@@ -56,6 +56,9 @@ public class Relative extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            this.title = savedInstanceState.getString("relative");
+        }
     }
 
     @Override
@@ -64,14 +67,12 @@ public class Relative extends Fragment {
         return inflater.inflate(R.layout.fragment_relative, container, false);
     }
 
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            this.title = savedInstanceState.getString("relative");
-        }
 
         loadAnimations();
         initButtons();
@@ -259,6 +260,8 @@ public class Relative extends Fragment {
     }
 
     private void updateTableUI(ArrayList<BloodPressureReading> results) {
+
+        if(getView() == null) return;
 
         int totalS = 0;
         int totalD = 0;
